@@ -25,12 +25,12 @@
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0iT-hH-PpK">
                     <rect key="frame" x="74" y="17" width="117" height="26"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="4Hp-WI-5oq">
+                    <popUpButtonCell key="cell" type="push" title="JPEG (*.jpg)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="v4g-Ss-pGr" id="4Hp-WI-5oq">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="DLx-bs-kYB">
                             <items>
-                                <menuItem title="JPEG (*.jpg)" id="v4g-Ss-pGr"/>
+                                <menuItem title="JPEG (*.jpg)" state="on" id="v4g-Ss-pGr"/>
                                 <menuItem title="GIF (*.gif)" id="TQ0-QZ-wi6"/>
                                 <menuItem title="PNG (*.png)" id="tYv-MC-Jzs"/>
                             </items>
@@ -41,7 +41,7 @@
                     </connections>
                 </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="306" y="78"/>
+            <point key="canvasLocation" x="158" y="-179"/>
         </customView>
     </objects>
 </document>

@@ -10,6 +10,7 @@
 #import <AppKit/NSSavePanel.h>
 #import <AppKit/NSPopUpButton.h>
 #import <AppKit/NSTextField.h>
+#import "AccessoryViewController.h"
 
 @interface PopUpButtonHandler : NSObject
 
@@ -54,10 +55,34 @@
 
 @end
 
-static PopUpButtonHandler *popUpButtonHandler;
-static NSSavePanel        *savePanel;
+static NSSavePanel *savePanel;
 
-std::string saveFile()
+std::string saveFileDefault()
+{
+    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+
+    if (!savePanel)
+        savePanel = [NSSavePanel savePanel];
+
+    [savePanel setAllowedFileTypes:fileTypesArray];
+    [savePanel setTitle:@"Save Image"];
+
+    if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    {
+        NSURL *URL = [savePanel URL];
+        if (URL)
+        {
+            NSString *path = [URL path];
+            return std::string([path UTF8String]);
+        }
+    }
+    
+    return std::string();
+}
+
+static PopUpButtonHandler *popUpButtonHandler;
+
+std::string saveFileProgrammaticVersion()
 {
     NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
 
@@ -84,7 +109,6 @@ std::string saveFile()
     [popupButton addItemsWithTitles:buttonItems];
     [popupButton setTarget:popUpButtonHandler];
     [popupButton setAction:@selector(selectFormat:)];
-    [popupButton setAutoenablesItems:YES];
 
     [accessoryView addSubview:label];
     [accessoryView addSubview:popupButton];
@@ -103,4 +127,40 @@ std::string saveFile()
 
     return std::string();
 }
+
+static AccessoryViewController *accessoryVC;
+
+std::string saveFileNibVersion()
+{
+    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+
+    if (!savePanel)
+        savePanel = [NSSavePanel savePanel];
+
+    if (!accessoryVC)
+    {
+        accessoryVC = [[AccessoryViewController alloc] initWithNibName:@"AccessoryViewController"
+                                                                bundle:[NSBundle mainBundle]];
+        [accessoryVC setSavePanel:savePanel];
+    }
+
+    [savePanel setAllowedFileTypes:fileTypesArray];
+    [savePanel setTitle:@"Save Image"];
+
+
+    [savePanel setAccessoryView:[accessoryVC view]];
+
+    if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    {
+        NSURL *URL = [savePanel URL];
+        if (URL)
+        {
+            NSString *path = [URL path];
+            return std::string([path UTF8String]);
+        }
+    }
+    
+    return std::string();
+}
+
 

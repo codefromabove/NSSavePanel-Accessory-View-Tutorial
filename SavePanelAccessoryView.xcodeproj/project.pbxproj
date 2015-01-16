@@ -61,8 +61,6 @@
 		66395C4B1A699E54005A479A /* SavePanelAccessoryView */ = {
 			isa = PBXGroup;
 			children = (
-				66395C711A69A376005A479A /* SaveFromCFunction.h */,
-				66395C721A69A376005A479A /* SaveFromCFunction.mm */,
 				66395C6C1A69A369005A479A /* AccessoryViewController.h */,
 				66395C6D1A69A369005A479A /* AccessoryViewController.m */,
 				66395C6E1A69A369005A479A /* AccessoryViewController.xib */,
@@ -70,6 +68,8 @@
 				66395C4F1A699E54005A479A /* AppDelegate.mm */,
 				66395C531A699E54005A479A /* Images.xcassets */,
 				66395C551A699E54005A479A /* MainMenu.xib */,
+				66395C711A69A376005A479A /* SaveFromCFunction.h */,
+				66395C721A69A376005A479A /* SaveFromCFunction.mm */,
 				66395C4C1A699E54005A479A /* Supporting Files */,
 			);
 			path = SavePanelAccessoryView;
@@ -292,6 +292,7 @@
 				66395C681A699E54005A479A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -98,6 +98,7 @@
         NSLog(@"Selected file: %@", file);
     }
 }
+
 - (IBAction)launchNibVersion:(id)sender
 {
     NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
@@ -124,9 +125,22 @@
     }
 }
 
-- (IBAction)launchFromCFunction:(id)sender
+- (IBAction)launchFromCFunctionDefault:(id)sender
 {
-    std::string file = saveFile();
+    std::string file = saveFileDefault();
     NSLog(@"Selected file: %s", file.c_str());
 }
+
+- (IBAction)launchFromCFunctionProgrammaticVersion:(id)sender
+{
+    std::string file = saveFileProgrammaticVersion();
+    NSLog(@"Selected file: %s", file.c_str());
+}
+
+- (IBAction)launchFromCFunctionNibVersion:(id)sender
+{
+    std::string file = saveFileNibVersion();
+    NSLog(@"Selected file: %s", file.c_str());
+}
+
 @end

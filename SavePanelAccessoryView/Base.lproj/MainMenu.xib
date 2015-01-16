@@ -669,14 +669,14 @@
         <window title="SavePanelAccessoryView" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="161"/>
+            <rect key="contentRect" x="335" y="390" width="480" height="230"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="161"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P73-JK-Kon">
-                        <rect key="frame" x="137" y="113" width="206" height="32"/>
+                        <rect key="frame" x="137" y="182" width="206" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch Default Save Panel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SIf-3z-l5z">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -686,7 +686,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5fT-Mu-poq">
-                        <rect key="frame" x="128" y="80" width="225" height="32"/>
+                        <rect key="frame" x="128" y="149" width="225" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch Programmatic Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gxC-ps-a7g">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -696,7 +696,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OTs-tE-zcU">
-                        <rect key="frame" x="160" y="47" width="160" height="32"/>
+                        <rect key="frame" x="160" y="116" width="160" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch Nib Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pah-AA-ZiM">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -706,18 +706,38 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9PG-VN-IGM">
-                        <rect key="frame" x="144" y="14" width="192" height="32"/>
-                        <buttonCell key="cell" type="push" title="Launch From C Function" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AnL-Zy-bpK">
+                        <rect key="frame" x="70" y="50" width="341" height="32"/>
+                        <buttonCell key="cell" type="push" title="Launch From C Function - Programmatic Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AnL-Zy-bpK">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="launchFromCFunctionProgrammaticVersion:" target="Voe-Tx-rLC" id="I1i-av-43y"/>
+                            </connections>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ycp-mV-qZp">
+                        <rect key="frame" x="144" y="83" width="192" height="32"/>
+                        <buttonCell key="cell" type="push" title="Launch From C Function" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QeW-lY-XQA">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="launchFromCFunctionDefault:" target="Voe-Tx-rLC" id="0Nf-Ms-xTL"/>
+                            </connections>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zGa-73-AlS">
+                        <rect key="frame" x="102" y="17" width="276" height="32"/>
+                        <buttonCell key="cell" type="push" title="Launch From C Function - Nib Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pNt-lW-F0N">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="launchFromCFunction:" target="Voe-Tx-rLC" id="vbD-gW-0Dx"/>
+                            <action selector="launchFromCFunctionNibVersion:" target="Voe-Tx-rLC" id="QAO-GI-HgV"/>
                         </connections>
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="342" y="356.5"/>
+            <point key="canvasLocation" x="342" y="391"/>
         </window>
     </objects>
 </document>

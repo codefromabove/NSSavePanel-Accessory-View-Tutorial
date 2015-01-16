@@ -12,7 +12,9 @@
 #include <stdio.h>
 #include <string>
 
-std::string saveFile();
+std::string saveFileDefault();
+std::string saveFileProgrammaticVersion();
+std::string saveFileNibVersion();
 
 
 #endif /* defined(__SavePanelAccessoryView__SaveFromCFunction__) */
