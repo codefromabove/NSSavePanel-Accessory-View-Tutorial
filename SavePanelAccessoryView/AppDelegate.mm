@@ -3,7 +3,7 @@
 //  SavePanelAccessoryView
 //
 //  Created by Philip Schneider on 1/16/15.
-//  Copyright (c) 2015 Pixologic, Inc. All rights reserved.
+//  Copyright (c) 2015 Code From Above, LLC All rights reserved.
 //
 
 #import "AppDelegate.h"
