@@ -28,6 +28,11 @@
     // Insert code here to tear down your application
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+{
+    return YES;
+}
+
 - (void)selectFormat:(id)sender
 {
     NSPopUpButton *button                 = (NSPopUpButton *)sender;
