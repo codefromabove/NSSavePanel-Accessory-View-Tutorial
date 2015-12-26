@@ -37,5 +37,12 @@
 
     NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
     [[self savePanel] setNameFieldStringValue:nameFieldStringWithExt];
+
+    // If the Finder Preference "Show all filename extensions" is false or asdf, then
+    // the nameFieldStringValue will not include the extension we just changed/added.
+    // So, in order to ensure that the panel's URL has the extension we've just
+    // specified, the workaround is to restrict the allowed file types to only
+    // the specified one.
+    [[self savePanel] setAllowedFileTypes:@[extension]];
 }
 @end
