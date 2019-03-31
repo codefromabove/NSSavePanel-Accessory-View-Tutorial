@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -675,8 +676,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P73-JK-Kon">
-                        <rect key="frame" x="137" y="182" width="206" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P73-JK-Kon">
+                        <rect key="frame" x="140" y="182" width="201" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch Default Save Panel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SIf-3z-l5z">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -685,8 +686,8 @@
                             <action selector="launchDefaultSavePanel:" target="Voe-Tx-rLC" id="sVT-g5-LoA"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5fT-Mu-poq">
-                        <rect key="frame" x="128" y="149" width="225" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5fT-Mu-poq">
+                        <rect key="frame" x="129" y="149" width="222" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch Programmatic Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gxC-ps-a7g">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -695,8 +696,8 @@
                             <action selector="launchProgrammaticVersion:" target="Voe-Tx-rLC" id="jmG-4e-Mxw"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OTs-tE-zcU">
-                        <rect key="frame" x="160" y="116" width="160" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OTs-tE-zcU">
+                        <rect key="frame" x="161" y="116" width="158" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch Nib Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pah-AA-ZiM">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -705,8 +706,8 @@
                             <action selector="launchNibVersion:" target="Voe-Tx-rLC" id="NTz-pB-Aeu"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9PG-VN-IGM">
-                        <rect key="frame" x="70" y="50" width="341" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9PG-VN-IGM">
+                        <rect key="frame" x="73" y="50" width="335" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch From C Function - Programmatic Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AnL-Zy-bpK">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -715,8 +716,8 @@
                             </connections>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ycp-mV-qZp">
-                        <rect key="frame" x="144" y="83" width="192" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ycp-mV-qZp">
+                        <rect key="frame" x="146" y="83" width="188" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch From C Function" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QeW-lY-XQA">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -725,8 +726,8 @@
                             </connections>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zGa-73-AlS">
-                        <rect key="frame" x="102" y="17" width="276" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zGa-73-AlS">
+                        <rect key="frame" x="105" y="17" width="271" height="32"/>
                         <buttonCell key="cell" type="push" title="Launch From C Function - Nib Version" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pNt-lW-F0N">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -736,8 +737,22 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="5fT-Mu-poq" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="1hL-7p-cId"/>
+                    <constraint firstItem="zGa-73-AlS" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="HWg-LJ-bcR"/>
+                    <constraint firstItem="OTs-tE-zcU" firstAttribute="top" secondItem="5fT-Mu-poq" secondAttribute="bottom" constant="12" id="Wpq-ok-ezD"/>
+                    <constraint firstItem="Ycp-mV-qZp" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="Xr6-Id-TaZ"/>
+                    <constraint firstItem="zGa-73-AlS" firstAttribute="top" secondItem="9PG-VN-IGM" secondAttribute="bottom" constant="12" id="ZwM-ky-8Rn"/>
+                    <constraint firstItem="P73-JK-Kon" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="cAZ-gU-Wlv"/>
+                    <constraint firstItem="Ycp-mV-qZp" firstAttribute="top" secondItem="OTs-tE-zcU" secondAttribute="bottom" constant="12" id="dQM-lk-Gqx"/>
+                    <constraint firstItem="P73-JK-Kon" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="dyR-pZ-tm8"/>
+                    <constraint firstItem="9PG-VN-IGM" firstAttribute="top" secondItem="Ycp-mV-qZp" secondAttribute="bottom" constant="12" id="hZP-gf-ezo"/>
+                    <constraint firstItem="5fT-Mu-poq" firstAttribute="top" secondItem="P73-JK-Kon" secondAttribute="bottom" constant="12" id="sRh-g7-g7f"/>
+                    <constraint firstItem="9PG-VN-IGM" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="wad-5z-4nv"/>
+                    <constraint firstItem="OTs-tE-zcU" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="weq-PY-1Zh"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="342" y="391"/>
+            <point key="canvasLocation" x="330" y="448"/>
         </window>
     </objects>
 </document>

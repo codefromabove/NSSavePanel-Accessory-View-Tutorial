@@ -3,7 +3,7 @@
 //  SavePanelAccessoryView
 //
 //  Created by Philip Schneider on 1/16/15.
-//  Copyright (c) 2015 Code From Above, LLC All rights reserved.
+//  Copyright (c) 2015-2019 Code From Above, LLC All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -70,7 +70,7 @@
     [[self savePanel] setAllowedFileTypes:fileTypesArray];
     [[self savePanel] setTitle:@"Save Image"];
 
-    if ([[self savePanel] runModal] == NSFileHandlingPanelOKButton)
+    if ([[self savePanel] runModal] == NSModalResponseOK)
     {
         NSURL *file = [[self savePanel] URL];
         NSLog(@"Selected file: %@", file);
@@ -105,7 +105,7 @@
 
     [[self savePanel] setAccessoryView:accessoryView];
 
-    if ([[self savePanel] runModal] == NSFileHandlingPanelOKButton)
+    if ([[self savePanel] runModal] == NSModalResponseOK)
     {
         NSURL *file = [[self savePanel] URL];
         NSLog(@"Selected file: %@", file);
@@ -131,7 +131,7 @@
 
     [[self savePanel] setAccessoryView:[[self accessoryVC] view]];
 
-    if ([[self savePanel] runModal] == NSFileHandlingPanelOKButton)
+    if ([[self savePanel] runModal] == NSModalResponseOK)
     {
         NSURL *file = [[self savePanel] URL];
         NSLog(@"Selected file: %@", file);

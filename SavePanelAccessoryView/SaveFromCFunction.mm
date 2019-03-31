@@ -3,7 +3,7 @@
 //  TestDialog
 //
 //  Created by Philip Schneider on 1/16/15.
-//  Copyright (c) 2015 Code From Above, LLC. All rights reserved.
+//  Copyright (c) 2015-2019 Code From Above, LLC. All rights reserved.
 //
 
 #include "SaveFromCFunction.h"
@@ -75,7 +75,7 @@ std::string saveFileDefault()
     [savePanel setAllowedFileTypes:fileTypesArray];
     [savePanel setTitle:@"Save Image"];
 
-    if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
     {
         NSURL *URL = [savePanel URL];
         if (URL)
@@ -123,7 +123,7 @@ std::string saveFileProgrammaticVersion()
 
     [savePanel setAccessoryView:accessoryView];
 
-    if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
     {
         NSURL *URL = [savePanel URL];
         if (URL)
@@ -158,7 +158,7 @@ std::string saveFileNibVersion()
 
     [savePanel setAccessoryView:[accessoryVC view]];
 
-    if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
     {
         NSURL *URL = [savePanel URL];
         if (URL)
