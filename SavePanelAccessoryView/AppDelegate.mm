@@ -98,6 +98,7 @@
 
     NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(50.0, 2, 140, 22.0) pullsDown:NO];
     [popupButton addItemsWithTitles:buttonItems];
+    [popupButton setTarget:self];
     [popupButton setAction:@selector(selectFormat:)];
 
     [accessoryView addSubview:label];
