@@ -7,6 +7,7 @@
 //
 
 #import "AccessoryViewController.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @interface AccessoryViewController ()
 
@@ -28,13 +29,20 @@
     NSString      *trimmedNameFieldString = [nameFieldString stringByDeletingPathExtension];
     NSString      *extension;
 
-    if (selectedItemIndex == 0)
+    NSArray<UTType *> *allowedContentTypes;
+    if (selectedItemIndex == 0) {
         extension = @"jpg";
-    else if (selectedItemIndex == 1)
+        allowedContentTypes = @[UTTypeJPEG];
+    }
+    else if (selectedItemIndex == 1) {
         extension = @"gif";
-    else
+        allowedContentTypes = @[UTTypeGIF];
+    }
+    else {
         extension = @"png";
-
+        allowedContentTypes = @[UTTypePNG];
+    }
+    
     NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
     [[self savePanel] setNameFieldStringValue:nameFieldStringWithExt];
 
@@ -44,6 +52,6 @@
     // So, in order to ensure that the panel's URL has the extension we've just
     // specified, the workaround is to restrict the allowed file types to only
     // the specified one.
-    [[self savePanel] setAllowedFileTypes:@[extension]];
+    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
 }
 @end

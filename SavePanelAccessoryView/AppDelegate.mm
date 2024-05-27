@@ -10,6 +10,8 @@
 #import "AccessoryViewController.h"
 #import "SaveFromCFunction.h"
 
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+
 @interface AppDelegate ()
 
 @property (weak) IBOutlet     NSWindow                *window;
@@ -41,12 +43,19 @@
     NSString      *trimmedNameFieldString = [nameFieldString stringByDeletingPathExtension];
     NSString      *extension;
 
-    if (selectedItemIndex == 0)
+    NSArray<UTType *> *allowedContentTypes;
+    if (selectedItemIndex == 0) {
         extension = @"jpg";
-    else if (selectedItemIndex == 1)
+        allowedContentTypes = @[UTTypeJPEG];
+    }
+    else if (selectedItemIndex == 1) {
         extension = @"gif";
-    else
+        allowedContentTypes = @[UTTypeGIF];
+    }
+    else {
         extension = @"png";
+        allowedContentTypes = @[UTTypePNG];
+    }
 
     NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
     [[self savePanel] setNameFieldStringValue:nameFieldStringWithExt];
@@ -57,17 +66,18 @@
     // So, in order to ensure that the panel's URL has the extension we've just
     // specified, the workaround is to restrict the allowed file types to only
     // the specified one.
-    [[self savePanel] setAllowedFileTypes:@[extension]];
+    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
 }
 
 
 - (IBAction)launchDefaultSavePanel:(id)sender
 {
-    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
+
     if (![self savePanel])
         [self setSavePanel:[NSSavePanel savePanel]];
 
-    [[self savePanel] setAllowedFileTypes:fileTypesArray];
+    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
     [[self savePanel] setTitle:@"Save Image"];
 
     if ([[self savePanel] runModal] == NSModalResponseOK)
@@ -79,11 +89,11 @@
 
 - (IBAction)launchProgrammaticVersion:(id)sender
 {
-    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
     if (![self savePanel])
         [self setSavePanel:[NSSavePanel savePanel]];
 
-    [[self savePanel] setAllowedFileTypes:fileTypesArray];
+    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
     [[self savePanel] setTitle:@"Save Image"];
 
     NSArray *buttonItems   = [NSArray arrayWithObjects:@"JPEG (*.jpg)", @"GIF (*.gif)", @"PNG (*.png)", nil];
@@ -115,11 +125,11 @@
 
 - (IBAction)launchNibVersion:(id)sender
 {
-    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
     if (![self savePanel])
         [self setSavePanel:[NSSavePanel savePanel]];
 
-    [[self savePanel] setAllowedFileTypes:fileTypesArray];
+    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
     [[self savePanel] setTitle:@"Save Image"];
 
     if (![self accessoryVC])

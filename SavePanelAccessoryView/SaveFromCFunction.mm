@@ -7,9 +7,12 @@
 //
 
 #include "SaveFromCFunction.h"
+
 #import <AppKit/NSSavePanel.h>
 #import <AppKit/NSPopUpButton.h>
 #import <AppKit/NSTextField.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+
 #import "AccessoryViewController.h"
 
 @interface PopUpButtonHandler : NSObject
@@ -42,12 +45,19 @@
     NSString      *trimmedNameFieldString = [nameFieldString stringByDeletingPathExtension];
     NSString      *extension;
 
-    if (selectedItemIndex == 0)
+    NSArray<UTType *> *allowedContentTypes;
+    if (selectedItemIndex == 0) {
         extension = @"jpg";
-    else if (selectedItemIndex == 1)
+        allowedContentTypes = @[UTTypeJPEG];
+    }
+    else if (selectedItemIndex == 1) {
         extension = @"gif";
-    else
+        allowedContentTypes = @[UTTypeGIF];
+    }
+    else {
         extension = @"png";
+        allowedContentTypes = @[UTTypePNG];
+    }
 
     NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
     [[self savePanel] setNameFieldStringValue:nameFieldStringWithExt];
@@ -58,7 +68,7 @@
     // So, in order to ensure that the panel's URL has the extension we've just
     // specified, the workaround is to restrict the allowed file types to only
     // the specified one.
-    [[self savePanel] setAllowedFileTypes:@[extension]];
+    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
 }
 
 @end
@@ -67,12 +77,12 @@ static NSSavePanel *savePanel;
 
 std::string saveFileDefault()
 {
-    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
 
     if (!savePanel)
         savePanel = [NSSavePanel savePanel];
 
-    [savePanel setAllowedFileTypes:fileTypesArray];
+    [savePanel setAllowedContentTypes:allowedContentTypes];
     [savePanel setTitle:@"Save Image"];
 
     if ([savePanel runModal] == NSModalResponseOK)
@@ -92,15 +102,14 @@ static PopUpButtonHandler *popUpButtonHandler;
 
 std::string saveFileProgrammaticVersion()
 {
-    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
-
+    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
     if (!savePanel)
         savePanel = [NSSavePanel savePanel];
 
     if (!popUpButtonHandler)
         popUpButtonHandler = [[PopUpButtonHandler alloc] initWithPanel:savePanel];
 
-    [savePanel setAllowedFileTypes:fileTypesArray];
+    [savePanel setAllowedContentTypes:allowedContentTypes];
     [savePanel setTitle:@"Save Image"];
 
     NSArray *buttonItems   = [NSArray arrayWithObjects:@"JPEG (*.jpg)", @"GIF (*.gif)", @"PNG (*.png)", nil];
@@ -140,7 +149,7 @@ static AccessoryViewController *accessoryVC;
 
 std::string saveFileNibVersion()
 {
-    NSArray *fileTypesArray = [NSArray arrayWithObjects:@"jpg", @"gif", @"png", nil];
+    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
 
     if (!savePanel)
         savePanel = [NSSavePanel savePanel];
@@ -152,9 +161,8 @@ std::string saveFileNibVersion()
         [accessoryVC setSavePanel:savePanel];
     }
 
-    [savePanel setAllowedFileTypes:fileTypesArray];
+    [savePanel setAllowedContentTypes:allowedContentTypes];
     [savePanel setTitle:@"Save Image"];
-
 
     [savePanel setAccessoryView:[accessoryVC view]];
 
