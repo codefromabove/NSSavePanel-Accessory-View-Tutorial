@@ -1,6 +1,6 @@
 //
-//  SaveFromCFunction.cpp
-//  TestDialog
+//  SaveFromCFunction.mm
+//  SavePanelAccessoryView
 //
 //  Created by Philip Schneider on 1/16/15.
 //  Copyright (c) 2015-2019 Code From Above, LLC. All rights reserved.
@@ -8,19 +8,18 @@
 
 #include "SaveFromCFunction.h"
 
-#import <AppKit/NSSavePanel.h>
-#import <AppKit/NSPopUpButton.h>
-#import <AppKit/NSTextField.h>
-#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <AppKit/AppKit.h>
 
 #import "AccessoryViewController.h"
 
+// A plain C++ function can't be a control's target, so this object receives
+// the popup's action on its behalf.
 @interface PopUpButtonHandler : NSObject
 
 @property (nonatomic, weak) NSSavePanel *savePanel;
 
 - (instancetype)initWithPanel:(NSSavePanel *)panel;
-- (void)selectFormat:(id)sender;
+- (IBAction)selectFormat:(id)sender;
 
 @end
 
@@ -37,146 +36,93 @@
     return self;
 }
 
-- (void)selectFormat:(id)sender
+- (IBAction)selectFormat:(id)sender
 {
-    NSPopUpButton *button                 = (NSPopUpButton *)sender;
-    NSInteger      selectedItemIndex      = [button indexOfSelectedItem];
-    NSString      *nameFieldString        = [[self savePanel] nameFieldStringValue];
-    NSString      *trimmedNameFieldString = [nameFieldString stringByDeletingPathExtension];
-    NSString      *extension;
-
-    NSArray<UTType *> *allowedContentTypes;
-    if (selectedItemIndex == 0) {
-        extension = @"jpg";
-        allowedContentTypes = @[UTTypeJPEG];
-    }
-    else if (selectedItemIndex == 1) {
-        extension = @"gif";
-        allowedContentTypes = @[UTTypeGIF];
-    }
-    else {
-        extension = @"png";
-        allowedContentTypes = @[UTTypePNG];
-    }
-
-    NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
-    [[self savePanel] setNameFieldStringValue:nameFieldStringWithExt];
-
-    // If the Finder Preference "Show all filename extensions" is false or the
-    // panel's extensionHidden property is YES (the default), then the
-    // nameFieldStringValue will not include the extension we just changed/added.
-    // So, in order to ensure that the panel's URL has the extension we've just
-    // specified, the workaround is to restrict the allowed file types to only
-    // the specified one.
-    [[self savePanel] setAllowedContentTypes:allowedContentTypes];
+    [AccessoryViewController applyFormatAtIndex:[(NSPopUpButton *)sender indexOfSelectedItem]
+                                    toSavePanel:[self savePanel]];
 }
 
 @end
 
-static NSSavePanel *savePanel;
+static NSSavePanel             *savePanel;
+static PopUpButtonHandler      *popUpButtonHandler;
+static AccessoryViewController *accessoryVC;
+
+// Creates the shared panel on first use and resets the settings common to
+// every variant. The panel is reused, so any accessory view left over from a
+// previous variant is removed here.
+static NSSavePanel *preparedSavePanel()
+{
+    if (!savePanel)
+        savePanel = [NSSavePanel savePanel];
+
+    [savePanel setAllowedContentTypes:[AccessoryViewController allContentTypes]];
+    [savePanel setTitle:@"Save Image"];
+    [savePanel setAccessoryView:nil];
+    [savePanel setAllowsOtherFileTypes:NO];
+
+    return savePanel;
+}
+
+static std::string runSavePanel(NSSavePanel *panel)
+{
+    if ([panel runModal] == NSModalResponseOK)
+    {
+        const char *path = [[panel URL] fileSystemRepresentation];
+        if (path)
+            return std::string(path);
+    }
+
+    return std::string();
+}
 
 std::string saveFileDefault()
 {
-    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
-
-    if (!savePanel)
-        savePanel = [NSSavePanel savePanel];
-
-    [savePanel setAllowedContentTypes:allowedContentTypes];
-    [savePanel setTitle:@"Save Image"];
-
-    if ([savePanel runModal] == NSModalResponseOK)
-    {
-        NSURL *URL = [savePanel URL];
-        if (URL)
-        {
-            NSString *path = [URL path];
-            return std::string([path UTF8String]);
-        }
-    }
-    
-    return std::string();
+    return runSavePanel(preparedSavePanel());
 }
-
-static PopUpButtonHandler *popUpButtonHandler;
 
 std::string saveFileProgrammaticVersion()
 {
-    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
-    if (!savePanel)
-        savePanel = [NSSavePanel savePanel];
+    NSSavePanel *panel = preparedSavePanel();
 
     if (!popUpButtonHandler)
-        popUpButtonHandler = [[PopUpButtonHandler alloc] initWithPanel:savePanel];
+        popUpButtonHandler = [[PopUpButtonHandler alloc] initWithPanel:panel];
 
-    [savePanel setAllowedContentTypes:allowedContentTypes];
-    [savePanel setTitle:@"Save Image"];
+    NSTextField *label = [NSTextField labelWithString:@"Format:"];
 
-    NSArray *buttonItems   = [NSArray arrayWithObjects:@"JPEG (*.jpg)", @"GIF (*.gif)", @"PNG (*.png)", nil];
-    NSView  *accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 200, 32.0)];
-
-    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 60, 22)];
-    [label setEditable:NO];
-    [label setStringValue:@"Format:"];
-    [label setBordered:NO];
-    [label setBezeled:NO];
-    [label setDrawsBackground:NO];
-
-    NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(50.0, 2, 140, 22.0) pullsDown:NO];
-    [popupButton addItemsWithTitles:buttonItems];
+    NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSZeroRect pullsDown:NO];
+    [popupButton addItemsWithTitles:[AccessoryViewController formatTitles]];
     [popupButton setTarget:popUpButtonHandler];
     [popupButton setAction:@selector(selectFormat:)];
 
-    [accessoryView addSubview:label];
-    [accessoryView addSubview:popupButton];
+    NSStackView *accessoryView = [NSStackView stackViewWithViews:@[label, popupButton]];
+    [accessoryView setEdgeInsets:NSEdgeInsetsMake(8.0, 20.0, 8.0, 20.0)];
+    [accessoryView setFrameSize:[accessoryView fittingSize]];
 
-    [savePanel setAccessoryView:accessoryView];
+    [panel setAccessoryView:accessoryView];
 
-    if ([savePanel runModal] == NSModalResponseOK)
-    {
-        NSURL *URL = [savePanel URL];
-        if (URL)
-        {
-            NSString *path = [URL path];
-            return std::string([path UTF8String]);
-        }
-    }
+    // Make the panel match the popup's initial selection.
+    [popUpButtonHandler selectFormat:popupButton];
 
-    return std::string();
+    return runSavePanel(panel);
 }
-
-static AccessoryViewController *accessoryVC;
 
 std::string saveFileNibVersion()
 {
-    NSArray<UTType *> *allowedContentTypes = @[UTTypeJPEG, UTTypeGIF, UTTypePNG];
-
-    if (!savePanel)
-        savePanel = [NSSavePanel savePanel];
+    NSSavePanel *panel = preparedSavePanel();
 
     if (!accessoryVC)
     {
         accessoryVC = [[AccessoryViewController alloc] initWithNibName:@"AccessoryViewController"
                                                                 bundle:[NSBundle mainBundle]];
-        [accessoryVC setSavePanel:savePanel];
+        [accessoryVC setSavePanel:panel];
     }
 
-    [savePanel setAllowedContentTypes:allowedContentTypes];
-    [savePanel setTitle:@"Save Image"];
+    [panel setAccessoryView:[accessoryVC view]];
 
-    [savePanel setAccessoryView:[accessoryVC view]];
+    // The view controller is reused, so its popup may still show the format
+    // chosen last time. Make the panel match it.
+    [accessoryVC applySelectedFormat];
 
-    if ([savePanel runModal] == NSModalResponseOK)
-    {
-        NSURL *URL = [savePanel URL];
-        if (URL)
-        {
-            NSString *path = [URL path];
-            return std::string([path UTF8String]);
-        }
-    }
-    
-    return std::string();
+    return runSavePanel(panel);
 }
-
-
